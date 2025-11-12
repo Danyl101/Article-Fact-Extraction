@@ -1,0 +1,27 @@
+# Data science & utilities
+numpy
+pandas
+tqdm
+joblib
+matplotlib
+seaborn
+
+# Machine learning & NLP
+spacy
+clean-text
+torch
+torchmetrics
+transformers
+scikit-learn
+optuna
+sentencepiece
+nltk
+
+# If you use HTTPX
+httpx
+flask
+flask-cors
+
+# Logging & environment management
+python-dotenv>=0.20
+pyyaml
