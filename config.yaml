@@ -1,0 +1,13 @@
+project:
+  name: KeyStone
+  version: 1.0
+  author: Danyl S John
+  seed: 42
+
+paths:
+  WebIE:
+    URL_Data: "Dataset/WebIE_data/urls.txt"
+    C4_Data_Dir: "D:/Projects/Main_Project/Dataset/C4_Dataset"
+    Annotation_Dir: "Dataset/WebIE_data/webie_annotations"
+    Extracted_Sentences_Dir: "Dataset/WebIE_data/Extracted_Sentences"
+

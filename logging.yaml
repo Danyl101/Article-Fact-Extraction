@@ -1,0 +1,86 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+  simple:
+    format: "%(levelname)s: %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+
+  get_c4_subset:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: standard
+    filename: Logs/get_c4_subset.log
+    encoding: utf8
+    mode: w
+
+  extract_sentences:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: standard
+    filename: Logs/extract_sentences.log
+    encoding: utf8
+    mode: w
+  
+  Data_Cleaner:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: standard
+    filename: Logs/Data_Cleaner.log
+    encoding: utf8
+    mode: w
+
+  cloud_to_hf_convert:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: standard
+    filename: Logs/cloud_to_hf_convert.log
+    encoding: utf8
+    mode: w
+  
+  delete_downloaded_c4:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: standard
+    filename: Logs/delete_downloaded_c4.log
+    encoding: utf8
+    mode: w
+
+
+loggers:
+  get_c4_subset:
+    level: DEBUG
+    handlers: [get_c4_subset]
+    propagate: no
+  
+  Data_Cleaner:
+    level: DEBUG
+    handlers: [Data_Cleaner]
+    propagate: no
+
+  extract_sentences:
+    level: DEBUG
+    handlers: [extract_sentences]
+    propagate: no
+
+  cloud_to_hf_convert:
+    level: DEBUG 
+    handlers: [cloud_to_hf_convert]
+    propagate: no
+
+  delete_downloaded_c4:
+    level: DEBUG 
+    handlers: [delete_downloaded_c4]
+    propagate: no
+
+root:
+  level: WARNING
+  handlers: [console]
