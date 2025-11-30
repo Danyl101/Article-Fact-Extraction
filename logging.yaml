@@ -54,7 +54,6 @@ handlers:
     encoding: utf8
     mode: w
 
-
 loggers:
   get_c4_subset:
     level: DEBUG

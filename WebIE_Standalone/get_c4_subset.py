@@ -17,7 +17,7 @@ from datasets import load_dataset, Dataset
 
 logger=logging.getLogger("get_c4_subset")
 
-idx=0
+idx=0  # Starting index for filenames
 
 def save_streamed_item_locally(item: dict, total_urls: int):
     global idx
@@ -31,8 +31,11 @@ def save_streamed_item_locally(item: dict, total_urls: int):
 
     # 2. Generate filename
     try:
+        folder_index = idx // 10000
+        folder_path = os.path.join(config["paths"]["WebIE"]["C4_Data_Dir"], str(folder_index))
+        os.makedirs(folder_path, exist_ok=True)
         filename=f"{idx}.json"
-        filepath=os.path.join(config["paths"]["WebIE"]["C4_Data_Dir"],filename)
+        filepath=os.path.join(folder_path, filename)
         idx+=1
         logger.debug(f"Saving to: {filepath}")
     except Exception as e:
@@ -81,9 +84,8 @@ if __name__ == "__main__":
         logger.info("Successfully streamed c4 dataset.")
     except Exception as e:
         logger.error(f"Error loading c4 dataset: {e}")
-
+        
     count=0
-
     try:
         for item in stream:
             if item["url"] in urls_set:

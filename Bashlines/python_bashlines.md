@@ -24,6 +24,24 @@ cloud_to_hf_convert
 
 python -m WebIE_Standalone.cloud_to_hf_convert
 
+_______________________________________
+
+delete_downloaded
+
+python -m WebIE_Standalone.delete_downloaded_c4
+
+______________________________________
+
+extract sentences
+
+python -m WebIE_Standalone.extract_sentences
+
+______________________________________
+
+gz to readable
+
+python -m WebIE_Standalone.gz_to_readable
+
 
 
 

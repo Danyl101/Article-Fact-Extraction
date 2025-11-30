@@ -8,7 +8,7 @@ from config_loader import config
 
 logger=logging.getLogger("cloud_to_hf_convert")
 
-folder = config["paths"]["WebIE"]["C4_Data_Dir"]
+folder = config["paths"]["WebIE"]["C4_Data_Dir_Intermediate"]
 files = [os.path.join(folder, f) for f in os.listdir(folder)]
 
 records = []
@@ -22,4 +22,4 @@ for f in files:
         logger.error(f"Error loading file {f}: {e}")
 
 ds = Dataset.from_list(records)
-ds.save_to_disk(config["paths"]["WebIE"]["C4_Data_HF"])
+ds.save_to_disk(config["paths"]["WebIE"]["C4_Data_Dir_HF"])

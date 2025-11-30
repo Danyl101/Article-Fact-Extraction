@@ -30,8 +30,8 @@ def load_c4_data(data_dir: str) -> Dict[str, Dict]:
     """
     c4_data = {}
     ds = load_from_disk(data_dir)
-    for i in tqdm(range(len(ds["train"]))):
-        data = ds["train"][i]
+    for i in tqdm(range(len(ds))):
+        data = ds[i]
         url = data["url"]
         doc = data["text"]
         timestamp = data["timestamp"]
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     """Extract sentence from c4 corresponding to each annotation example."""
 
     annotation_dir = config["paths"]["WebIE"]["Annotation_Dir"]
-    data_dir = config["paths"]["WebIE"]["C4_Data_Dir_Intermediate"]
+    data_dir = config["paths"]["WebIE"]["C4_Data_Dir_HF"]
     target_dir = config["paths"]["WebIE"]["Extracted_Sentences_Dir"]
 
     if not os.path.exists(target_dir):
@@ -74,18 +74,19 @@ if __name__ == "__main__":
                 for line in tqdm(in_f):
                     data = json.loads(line)
                     
-                    span = data["span"]
-                    url = data["uri"]
+                    if data["uri"] not in c4_data:
+                        logger.error(f"URL not found in c4 data: {data['uri']}")
+                        continue
+                    else:
+                        span = data["span"]
+                        url = data["uri"]
 
-                    timestamp = data["timestamp"]
-                    assert timestamp == c4_data[url]["timestamp"]
+                        doc = c4_data[url]["doc"]
+                        start, end = span["start"], span["end"]
+                        assert start < end
 
-                    doc = c4_data[url]["doc"]
-                    start, end = span["start"], span["end"]
-                    assert start < end
-
-                    sentence = doc[start:end]
-                    data["input"] = sentence
-                    out_f.write(json.dumps(data) + "\n")
+                        sentence = doc[start:end]
+                        data["input"] = sentence
+                        out_f.write(json.dumps(data) + "\n")
         out_f.close()
     print(f"Complete data is stored at {target_dir}.")

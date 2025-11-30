@@ -8,6 +8,8 @@ paths:
   WebIE:
     URL_Data: "Dataset/WebIE_data/urls.txt"
     C4_Data_Dir: "D:/Projects/Main_Project/Dataset/C4_Dataset"
+    C4_Data_Dir_Intermediate: "D:/Projects/Main_Project/Dataset/C4_Dataset_Intermediate"
+    C4_Data_Dir_HF: "D:/Projects/Main_Project/Dataset/C4_Dataset_HF"
     Annotation_Dir: "Dataset/WebIE_data/webie_annotations"
     Extracted_Sentences_Dir: "Dataset/WebIE_data/Extracted_Sentences"
 
