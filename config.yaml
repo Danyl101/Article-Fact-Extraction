@@ -13,3 +13,9 @@ paths:
     Annotation_Dir: "Dataset/WebIE_data/webie_annotations"
     Extracted_Sentences_Dir: "Dataset/WebIE_data/Extracted_Sentences"
 
+  Dataset:
+    Model_Input:
+      Train_Data: "Dataset/WebIE_data/Extracted_Sentences/train.json.gz"
+      Validation_Data: "Dataset/WebIE_data/Extracted_Sentences/val.json.gz"
+      Test_Data: "Dataset/WebIE_data/Extracted_Sentences/test.json.gz"
+

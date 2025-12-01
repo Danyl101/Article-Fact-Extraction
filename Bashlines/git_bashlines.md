@@ -2,7 +2,7 @@
 
                             BASH LINES FOR UPDATING REPO
                     
-git add  requirements.txt config_loader.py config.yaml Bashlines logging.yaml logging_loader.py Data_Preprocess WebIE_Standalone
+git add  requirements.txt config_loader.py config.yaml Bashlines logging.yaml logging_loader.py Data_Preprocess WebIE_Standalone Fact_Extraction
 git commit -m 
 git pull origin main --rebase 
 git push origin main
