@@ -10,15 +10,19 @@ logger = logging.getLogger("Fact_Extraction_Model")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model_name = "t5-small"
-tokenizer = T5Tokenizer.from_pretrained(model_name)
+tokenizer = T5Tokenizer.from_pretrained(model_name,legacy=True)
 model = T5ForConditionalGeneration.from_pretrained(model_name).to(device)
+
+logger.info("Beginning Data Extraction")
 
 # Dataset returns: input_ids, attention_mask, labels
 train_dataset = TripleExtractionDataset(config["paths"]["Dataset"]["Model_Input"]["Train_Data"], tokenizer)
 val_dataset = TripleExtractionDataset(config["paths"]["Dataset"]["Model_Input"]["Validation_Data"], tokenizer)
 test_dataset = TripleExtractionDataset(config["paths"]["Dataset"]["Model_Input"]["Test_Data"], tokenizer)
 
-train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)
+logger.info("Dataset Returned")
+
+train_loader = DataLoader(train_dataset, batch_size=4, shuffle=False)
 val_loader = DataLoader(val_dataset, batch_size=4)
 test_loader = DataLoader(test_dataset, batch_size=4)
 

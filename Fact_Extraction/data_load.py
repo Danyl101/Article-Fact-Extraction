@@ -20,11 +20,33 @@ class TripleExtractionDataset(Dataset):
 
                 # Convert triples list → linear string
                 triple_str = self.convert_triples(triples)
+                
+                tok_inp = self.tokenizer(
+                    input_text,
+                    max_length=self.max_length,
+                    truncation=True,
+                    padding="max_length",
+                    return_tensors="pt"
+                )
+
+                tok_lbl = self.tokenizer(
+                    triple_str,
+                    max_length=self.max_length,
+                    truncation=True,
+                    padding="max_length",
+                    return_tensors="pt"
+                )
 
                 self.data.append({
-                    "input": input_text,
-                    "label": triple_str
+                    "input_ids": tok_inp["input_ids"].squeeze(0),
+                    "attention_mask": tok_inp["attention_mask"].squeeze(0),
+                    "labels": tok_lbl["input_ids"].squeeze(0)
                 })
+                
+             # Replace pad tokens with -100 in labels
+        pad_id = self.tokenizer.pad_token_id
+        for row in self.data:
+            row["labels"][row["labels"] == pad_id] = -100
 
     def convert_triples(self, triples):
         # Format: <subj> S <rel> R <obj> O <et>
@@ -37,33 +59,4 @@ class TripleExtractionDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self, idx):
-        row = self.data[idx]
-
-        inputs = self.tokenizer(
-            row["input"],
-            max_length=self.max_length,
-            truncation=True,
-            padding="max_length",
-            return_tensors="pt"
-        )
-
-        labels = self.tokenizer(
-            row["label"],
-            max_length=self.max_length,
-            truncation=True,
-            padding="max_length",
-            return_tensors="pt"
-        )
-
-        # reshape to remove batch dimension
-        inputs = {k: v.squeeze(0) for k, v in inputs.items()}
-        labels = labels["input_ids"].squeeze(0)
-
-        # Replace pad token id with -100 for loss masking
-        labels[labels == self.tokenizer.pad_token_id] = -100
-
-        return {
-            "input_ids": inputs["input_ids"],
-            "attention_mask": inputs["attention_mask"],
-            "labels": labels
-        }
+        return self.data[idx]

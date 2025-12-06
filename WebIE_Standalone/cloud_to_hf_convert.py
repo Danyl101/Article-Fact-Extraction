@@ -8,7 +8,7 @@ from config_loader import config
 
 logger=logging.getLogger("cloud_to_hf_convert")
 
-folder = config["paths"]["WebIE"]["C4_Data_Dir"]
+folder = config["paths"]["Dataset"]["Model_Dataset"]["C4_Data_Dir"]
 
 records = []
 
@@ -24,4 +24,4 @@ for root,dirs,files in os.walk(folder):
         except Exception as e:
             logger.error(f"Error loading file {filenames}: {e}")
 ds = Dataset.from_list(records)
-ds.save_to_disk(config["paths"]["WebIE"]["C4_Data_Dir_HF"])
+ds.save_to_disk(config["paths"]["Dataset"]["Model_Dataset"]["C4_Data_Dir_HF"])

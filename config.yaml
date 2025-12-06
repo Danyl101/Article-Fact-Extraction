@@ -4,18 +4,29 @@ project:
   author: Danyl S John
   seed: 42
 
-paths:
-  WebIE:
-    URL_Data: "Dataset/WebIE_data/urls.txt"
-    C4_Data_Dir: "D:/Projects/Main_Project/Dataset/C4_Dataset"
-    C4_Data_Dir_Intermediate: "D:/Projects/Main_Project/Dataset/C4_Dataset_Intermediate"
-    C4_Data_Dir_HF: "D:/Projects/Main_Project/Dataset/C4_Dataset_HF"
-    Annotation_Dir: "Dataset/WebIE_data/webie_annotations"
-    Extracted_Sentences_Dir: "Dataset/WebIE_data/Extracted_Sentences"
-
+paths:  
   Dataset:
+    WebIE:
+      URL_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/WebIE_data/urls.txt"
+      Annotation_Dir: "D:/Projects/Main_Project/Dataset/Model_Dataset/WebIE_data/webie_annotations"
+
+    Model_Dataset:
+      C4_Data_Dir: "D:/Projects/Main_Project/Dataset/Model_Dataset/C4_Dataset"
+      C4_Data_Dir_HF: "D:/Projects/Main_Project/Dataset/Model_Dataset/C4_Dataset_HF"   
+      Extracted_Sentences_Dir: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences"
+
+    Tokenization_Input:
+      Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/train.json.gz"
+      Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/val.json.gz"
+      Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/test.json.gz"
+
     Model_Input:
-      Train_Data: "Dataset/WebIE_data/Extracted_Sentences/train.json.gz"
-      Validation_Data: "Dataset/WebIE_data/Extracted_Sentences/val.json.gz"
-      Test_Data: "Dataset/WebIE_data/Extracted_Sentences/test.json.gz"
+      Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/train_tokenized.pt"
+      Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/val_tokenized.pt"
+      Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/test_tokenized.pt"
+      
+          
+
+
+
 

@@ -45,6 +45,18 @@ python -m WebIE_Standalone.gz_to_readable
 
 
 
+                                LLM Model
+
+
+model
+
+python -m Fact_Extraction.model
+
+
+
+
+
+
 
 
 

@@ -32,7 +32,7 @@ def save_streamed_item_locally(item: dict, total_urls: int):
     # 2. Generate filename
     try:
         folder_index = idx // 10000
-        folder_path = os.path.join(config["paths"]["WebIE"]["C4_Data_Dir"], str(folder_index))
+        folder_path = os.path.join(config["paths"]["Dataset"]["WebIE"]["C4_Data_Dir"], str(folder_index))
         os.makedirs(folder_path, exist_ok=True)
         filename=f"{idx}.json"
         filepath=os.path.join(folder_path, filename)
@@ -54,7 +54,7 @@ def save_streamed_item_locally(item: dict, total_urls: int):
 if __name__ == "__main__":
 
     # Paths
-    url_path = config["paths"]["WebIE"]["URL_Data"]
+    url_path = config["paths"]["Dataset"]["Model_Dataset"]["URL_Data"]
 
     # Load URLs
     try:

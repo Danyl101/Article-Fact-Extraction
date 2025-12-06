@@ -62,6 +62,14 @@ handlers:
     encoding: utf8
     mode: w
 
+  Tokenizer:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: standard
+    filename: Logs/Tokenizer.log
+    encoding: utf8
+    mode: w
+
 loggers:
   get_c4_subset:
     level: DEBUG
@@ -91,6 +99,11 @@ loggers:
   Fact_Extraction_Model:
     level: DEBUG 
     handlers: [Fact_Extraction_Model]
+    propagate: no
+
+  Tokenizer:
+    level: DEBUG
+    handlers: [Tokenizer]
     propagate: no
 
 root:

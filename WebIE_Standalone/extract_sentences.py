@@ -42,9 +42,9 @@ def load_c4_data(data_dir: str) -> Dict[str, Dict]:
 if __name__ == "__main__":
     """Extract sentence from c4 corresponding to each annotation example."""
 
-    annotation_dir = config["paths"]["WebIE"]["Annotation_Dir"]
-    data_dir = config["paths"]["WebIE"]["C4_Data_Dir_HF"]
-    target_dir = config["paths"]["WebIE"]["Extracted_Sentences_Dir"]
+    annotation_dir = config["paths"]["Dataset"]["WebIE"]["Annotation_Dir"]
+    data_dir = config["paths"]["Dataset"]["Model_Dataset"]["C4_Data_Dir_HF"]
+    target_dir = config["paths"]["Dataset"]["Model_Dataset"]["Extracted_Sentences_Dir"]
 
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
