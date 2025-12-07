@@ -1,4 +1,5 @@
 import torch
+import os
 from torch.utils.data import DataLoader
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from transformers import DataCollatorForSeq2Seq
@@ -118,3 +119,11 @@ with torch.no_grad():
         total_test_loss += outputs.loss.item()
 
 logger.info(f"Final Test Loss: {total_test_loss:.4f}")
+
+save_path = config["paths"]["Model"]["Saved_Model"]
+
+os.makedirs(save_path, exist_ok=True)
+
+logger.info(f"Saving model to: {save_path}")
+
+model.save_pretrained(save_path)

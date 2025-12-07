@@ -1,4 +1,6 @@
-# Data science & utilities
+# ----------------------------------
+# Core Python Utilities & Data Science
+# ----------------------------------
 numpy
 pandas
 tqdm
@@ -6,22 +8,57 @@ joblib
 matplotlib
 seaborn
 
-# Machine learning & NLP
-spacy
-clean-text
+# ----------------------------------
+# Machine Learning & NLP
+# ----------------------------------
 torch
-torchmetrics
 transformers
+torchmetrics
+sentencepiece
 scikit-learn
 optuna
-sentencepiece
 nltk
+spacy
+clean-text
 
-# If you use HTTPX
+# HuggingFace datasets + arrow backend
+datasets
+pyarrow
+
+# ----------------------------------
+# Web / I/O / API utilities
+# ----------------------------------
 httpx
 flask
 flask-cors
 
-# Logging & environment management
+# ----------------------------------
+# Logging, config, environment
+# ----------------------------------
 python-dotenv>=0.20
 pyyaml
+loguru   # <-- recommended and commonly used
+coloredlogs
+
+# ----------------------------------
+# Multiprocessing / Parallelism
+# ----------------------------------
+multiprocess         # HF datasets uses this
+dill                 # needed for multiprocessing pickling
+
+# ----------------------------------
+# Compression / file handling
+# ----------------------------------
+gzip
+jsonlines
+
+# ----------------------------------
+# Optional: For uploading model to HuggingFace Hub
+# ----------------------------------
+huggingface-hub
+
+# ----------------------------------
+# Optional: If using Gradio/Streamlit later for demos
+# ----------------------------------
+# gradio
+# streamlit

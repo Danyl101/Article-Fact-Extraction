@@ -24,6 +24,9 @@ paths:
       Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Train_Tokens"
       Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Val_Tokens"
       Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Test_Tokens"
+
+  Model:
+    Saved_Model: "D:/Projects/Main_Project/Checkpoint/Saved_Model"
       
           
 
