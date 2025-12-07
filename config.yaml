@@ -21,9 +21,9 @@ paths:
       Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/test.json.gz"
 
     Model_Input:
-      Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/train_tokenized.pt"
-      Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/val_tokenized.pt"
-      Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/test_tokenized.pt"
+      Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Train_Tokens"
+      Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Val_Tokens"
+      Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Test_Tokens"
       
           
 
