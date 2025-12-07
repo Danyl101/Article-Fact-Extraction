@@ -1,30 +1,52 @@
 import torch
 from torch.utils.data import DataLoader
 from transformers import T5Tokenizer, T5ForConditionalGeneration
-from Fact_Extraction.data_load import TripleExtractionDataset
+from transformers import DataCollatorForSeq2Seq
 from config_loader import config
 from logging_loader import logging
+
+from datasets import load_from_disk
 
 logger = logging.getLogger("Fact_Extraction_Model")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 model_name = "t5-small"
 tokenizer = T5Tokenizer.from_pretrained(model_name,legacy=True)
 model = T5ForConditionalGeneration.from_pretrained(model_name).to(device)
 
+data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
+
 logger.info("Beginning Data Extraction")
 
 # Dataset returns: input_ids, attention_mask, labels
-train_dataset = TripleExtractionDataset(config["paths"]["Dataset"]["Model_Input"]["Train_Data"])
-val_dataset = TripleExtractionDataset(config["paths"]["Dataset"]["Model_Input"]["Validation_Data"])
-test_dataset = TripleExtractionDataset(config["paths"]["Dataset"]["Model_Input"]["Test_Data"])
+train_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Train_Data"])
+val_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Validation_Data"] )
+test_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Test_Data"])
 
 logger.info("Dataset Returned")
 
-train_loader = DataLoader(train_dataset, batch_size=4, shuffle=False)
-val_loader = DataLoader(val_dataset, batch_size=4)
-test_loader = DataLoader(test_dataset, batch_size=4)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=8,
+    shuffle=True,
+    num_workers=0,
+    collate_fn=data_collator
+)
+val_loader = DataLoader(
+    val_dataset,
+    batch_size=8,
+    shuffle=True,
+    num_workers=0,
+    collate_fn=data_collator
+)
+
+test_loader = DataLoader(
+    test_dataset,
+    batch_size=4,
+    shuffle=False,
+    num_workers=0,
+    collate_fn=data_collator
+)
 
 logger.info("Dataset Loaded")
 

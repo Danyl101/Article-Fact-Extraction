@@ -47,6 +47,25 @@ Decided to use a generic LLM model initially (T5-Small) for training initially ,
 
 _________________________________________
 
+# Iteration 1 [LLM]
+
+Decided to instead tokenize the entire dataset beforehand instead of during data loading , which saved alot of time ,but initial tensor files were extremely large (11gb) , which meant accessing even one index required loading the entire file , so instead split it down into smaller chunks making indexing easier
+
+________________________________________
+
+# Iteration 2 [LLM]
+
+Even though the files were significantly smaller, all of them had to be constantly moved into memory ,for proper accessing , which caused high RAM usage , thus decided to use lazy loading , where only the tensor file that needed to be accessed was loaded into the memory
+
+_______________________________________
+
+# Iteration 3 [LLM]
+
+Lazy Loading was still extremely slow , so decided to switch to HF Datasets which had dataloaders that pytorch supported , making them compatible and significantly faster , the json.gz files just had to be converted into .arrow files(HF) only once , and the entire dataloading class was avoided and instead data loading was done directly by DataLoader 
+
+______________________________________
+
+# Iteration 4 [LLM]
 
 
 

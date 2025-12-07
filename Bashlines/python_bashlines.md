@@ -52,6 +52,13 @@ model
 
 python -m Fact_Extraction.model
 
+_______________________________
+
+tokenizer
+
+python -m Fact_Extraction.tokenizer
+
+
 
 
 
