@@ -7,26 +7,26 @@ project:
 paths:  
   Dataset:
     WebIE:
-      URL_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/WebIE_data/urls.txt"
-      Annotation_Dir: "D:/Projects/Main_Project/Dataset/Model_Dataset/WebIE_data/webie_annotations"
+      URL_Data: "Dataset/Model_Dataset/WebIE_data/urls.txt"
+      Annotation_Dir: "Dataset/Model_Dataset/WebIE_data/webie_annotations"
 
     Model_Dataset:
-      C4_Data_Dir: "D:/Projects/Main_Project/Dataset/Model_Dataset/C4_Dataset"
-      C4_Data_Dir_HF: "D:/Projects/Main_Project/Dataset/Model_Dataset/C4_Dataset_HF"   
-      Extracted_Sentences_Dir: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences"
+      C4_Data_Dir: "Dataset/Model_Dataset/C4_Dataset"
+      C4_Data_Dir_HF: "Dataset/Model_Dataset/C4_Dataset_HF"   
+      Extracted_Sentences_Dir: "Dataset/Model_Dataset/Extracted_Sentences"
 
     Tokenization_Input:
-      Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/train.json.gz"
-      Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/val.json.gz"
-      Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Extracted_Sentences/test.json.gz"
+      Train_Data: "Dataset/Model_Dataset/Extracted_Sentences/train.json.gz"
+      Validation_Data: "Dataset/Model_Dataset/Extracted_Sentences/val.json.gz"
+      Test_Data: "Dataset/Model_Dataset/Extracted_Sentences/test.json.gz"
 
     Model_Input:
-      Train_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Train_Tokens"
-      Validation_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Val_Tokens"
-      Test_Data: "D:/Projects/Main_Project/Dataset/Model_Dataset/Tokenized_Data/Test_Tokens"
+      Train_Data: "Dataset/Model_Dataset/Tokenized_Data/Train_Tokens"
+      Validation_Data: "Dataset/Model_Dataset/Tokenized_Data/Val_Tokens"
+      Test_Data: "Dataset/Model_Dataset/Tokenized_Data/Test_Tokens"
 
   Model:
-    Saved_Model: "D:/Projects/Main_Project/Checkpoint/Saved_Model"
+    Saved_Model: "Checkpoint/Saved_Model"
       
           
 

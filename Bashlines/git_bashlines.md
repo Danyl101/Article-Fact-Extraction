@@ -16,6 +16,8 @@ git add -A
 git rm --cached
         (Manually Stop Tracking)
 
+Remove-Item -Recurse -Force
+
                     BASH LINES FOR INITIALIZING GIT REPO
 
 
