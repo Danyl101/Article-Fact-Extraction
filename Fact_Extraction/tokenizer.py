@@ -34,11 +34,19 @@ def convert_triples(example):
     meta = example.get("meta_obj", {})
     triples = meta.get("mapped_triples", None)
     text = []
+    clean=[]
+    seen=set()
 
     for s, r, o in triples:
-        text.append(f"<subj> {s} <rel> {r} <obj> {o} <et>")
+        key=(s.lower(),r.lower(),o.lower())
+        if key not in seen:
+            seen.add(key)
+            clean.append((s,r,o))      
+    
+    for s, r, o in clean:
+        text.append(f"{s}\t{r}\t{o}")
 
-    example["triple_text"] = " ".join(text)
+    example["triple_text"] = "\n".join(text)
     return example
 
 def tokenize(batch):
@@ -52,7 +60,7 @@ def tokenize(batch):
         batch["triple_text"],
         padding="max_length",
         truncation=True,
-        max_length=256,
+        max_length=64,
     )
     # IMPORTANT: Replace tokenizer.pad_token_id (0) with -100 for labels
     labels_ids = labels["input_ids"]
@@ -61,12 +69,11 @@ def tokenize(batch):
         for seq in labels_ids
     ]      
     
-    model_inputs["labels"] = labels["input_ids"]
+    model_inputs["labels"] = labels_ids
     return model_inputs
 
-
 if __name__=="__main__":
-    dataset=gzip_to_json(config["paths"]["Dataset"]["Tokenization_Input"]["Validation_Data"],"train")
+    dataset=gzip_to_json(config["paths"]["Dataset"]["Tokenization_Input"]["Train_Data"],"train")
     for i,line in enumerate(dataset):
         if(i<3):
             logger.info(line)
@@ -95,7 +102,7 @@ if __name__=="__main__":
             
     logger.info(f"After tokenization: {len(tokenized)}")
     
-    tokenized.save_to_disk(config["paths"]["Dataset"]["Model_Input"]["Validation_Data"])
+    tokenized.save_to_disk(config["paths"]["Dataset"]["Model_Input"]["Train_Data"])
 
 
 

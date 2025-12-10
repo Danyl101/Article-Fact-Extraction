@@ -24,7 +24,11 @@ train_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Train_
 val_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Validation_Data"] )
 test_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Test_Data"])
 
-logger.info("Dataset Returned")
+logger.info(f"Training Dataset length: {len(train_dataset)}")
+logger.info(f"Validation Dataset length: {len(val_dataset)}")
+logger.info(f"Test Dataset length: {len(test_dataset)}")
+
+logger.info(f"train_dataset example: {train_dataset[0]}")
 
 train_loader = DataLoader(
     train_dataset,
@@ -64,6 +68,9 @@ for epoch in range(num_epochs):
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
         labels = batch["labels"].to(device)
+        logger.info(f"Input IDs shape: {input_ids.shape}")
+        logger.info(f"Attention Mask shape: {attention_mask.shape}")
+        logger.info(f"Labels shape: {labels.shape}")
 
         optimizer.zero_grad()
 

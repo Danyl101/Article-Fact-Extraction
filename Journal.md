@@ -4,6 +4,24 @@
 # TAGS=[WEBIE,LLM]
 
 
+# ARCHITECTURE
+
+                        C4 Streaming (allenai/c4)
+                                ↓
+                        Raw JSON (local)
+                                ↓ (chunk 10k files)
+                        Converted to .arrow → HF Dataset
+                                ↓
+                        Filtered/cleaned annotations
+                                ↓
+                        Tokenized offline → tensor chunks
+                                ↓
+                        Loaded via HF DataLoader
+                                ↓
+                        LLM Training (T5-small → scalable)
+
+
+
 # Initial Iteration[WEBIE]
 
 Decided to use WebIE by amazon to extract data , its a program that extracts textual data from c4 dataset , and then associates these files with annotations which were manually annotated , the annotations comes in the two major forms , span&output , which essentially extracts the most important portion in the article , which is irrelevant for us , and extracts fact in form of triplets which we needed 
@@ -61,11 +79,28 @@ _______________________________________
 
 # Iteration 3 [LLM]
 
-Lazy Loading was still extremely slow , so decided to switch to HF Datasets which had dataloaders that pytorch supported , making them compatible and significantly faster , the json.gz files just had to be converted into .arrow files(HF) only once , and the entire dataloading class was avoided and instead data loading was done directly by DataLoader 
+Lazy Loading was still extremely slow , so decided to switch to HF Datasets which had dataloaders that pytorch supported , making them compatible and significantly faster , the json.gz files just had to be converted into .arrow files(HF) only once , and the entire dataloading class was avoided and instead data loading was done directly by inbuilt DataLoader 
 
 ______________________________________
 
 # Iteration 4 [LLM]
+
+So a small issue arose with the fact that WebIE is not an extremely high quality dataset , it contained empty values , so we had to filter out empty triplet values during conversion , but initially ran into a small issue in that i didnt consider triples as nested objects , also reduced padding and set label paddings to -100 
+
+______________________________________
+
+# Iteration 5 [LLM]
+
+Certain inputs had repeating/multiple triples that were semantically very similar thus causing issues in the model ,and another issue that couldnt be solved was noted , the triples were based off the entire article and not the input snippet alone , so the model didnt have proper information
+sometimes
+
+_______________________________________
+
+# Iteration 6 [LLM]
+
+
+
+
 
 
 

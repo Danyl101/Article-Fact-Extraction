@@ -2,7 +2,7 @@
 
                             BASH LINES FOR UPDATING REPO
                     
-git add  requirements.txt config_loader.py config.yaml Bashlines logging.yaml logging_loader.py Data_Preprocess WebIE_Standalone Fact_Extraction Journal.md
+git add  requirements.txt config_loader.py config.yaml Bashlines logging.yaml logging_loader.py Data_Preprocess WebIE_Standalone Fact_Extraction Journal.md frontend
 git commit -m 
 git pull origin main --rebase 
 git push origin main
@@ -15,8 +15,6 @@ git add -A
 
 git rm --cached
         (Manually Stop Tracking)
-
-Remove-Item -Recurse -Force
 
                     BASH LINES FOR INITIALIZING GIT REPO
 
@@ -43,6 +41,10 @@ git rm -r --cached venv/
 
 rm -rf node_modules 
                         (Delete modules)
+
+Remove-Item -Recurse -Force https://github.com/#username/#reponame\.git
+                        
+                        (Removes .git file from cloned repos)
 
 
 
