@@ -1,7 +1,7 @@
 import torch
 import os
 from torch.utils.data import DataLoader
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from transformers import DataCollatorForSeq2Seq
 from config_loader import config
 from logging_loader import logging
@@ -11,15 +11,16 @@ from datasets import load_from_disk
 logger = logging.getLogger("Fact_Extraction_Model")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model_name = "t5-small"
-tokenizer = T5Tokenizer.from_pretrained(model_name,legacy=True)
-model = T5ForConditionalGeneration.from_pretrained(model_name).to(device)
+# Switch to REBEL
+model_name = "Babelscape/rebel-large"   # smaller, fits in T4 15GB
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name).to(device)
 
-data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
+data_collator = DataCollatorForSeq2Seq(tokenizer, model=model,padding=True)
 
 logger.info("Beginning Data Extraction")
 
-# Dataset returns: input_ids, attention_mask, labels
+# Acquires data of HuggingFace Format 
 train_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Train_Data"])
 val_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Validation_Data"] )
 test_dataset = load_from_disk(config["paths"]["Dataset"]["Model_Input"]["Test_Data"])
@@ -29,6 +30,8 @@ logger.info(f"Validation Dataset length: {len(val_dataset)}")
 logger.info(f"Test Dataset length: {len(test_dataset)}")
 
 logger.info(f"train_dataset example: {train_dataset[0]}")
+
+#Loads the acquired data using data collators
 
 train_loader = DataLoader(
     train_dataset,
@@ -40,7 +43,7 @@ train_loader = DataLoader(
 val_loader = DataLoader(
     val_dataset,
     batch_size=8,
-    shuffle=True,
+    shuffle=False,
     num_workers=0,
     collate_fn=data_collator
 )
@@ -55,7 +58,7 @@ test_loader = DataLoader(
 
 logger.info("Dataset Loaded")
 
-optimizer = torch.optim.AdamW(model.parameters(), lr=3e-5)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5) #Defines Adam optimizer
 
 num_epochs = 30
 
@@ -68,9 +71,6 @@ for epoch in range(num_epochs):
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
         labels = batch["labels"].to(device)
-        logger.info(f"Input IDs shape: {input_ids.shape}")
-        logger.info(f"Attention Mask shape: {attention_mask.shape}")
-        logger.info(f"Labels shape: {labels.shape}")
 
         optimizer.zero_grad()
 

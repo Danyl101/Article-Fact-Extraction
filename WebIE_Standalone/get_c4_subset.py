@@ -23,7 +23,7 @@ def save_streamed_item_locally(item: dict, total_urls: int):
     global idx
     # 1. Serialize
     try:
-        bytes_data = json.dumps(item, ensure_ascii=False).encode("utf-8")
+        bytes_data = json.dumps(item, ensure_ascii=False).encode("utf-8") #Acquires data in json format
         logger.debug(f"Serialized item (url={item['url']}, bytes={len(bytes_data)})")
     except Exception as e:
         logger.error(f"Serialization error for URL {item.get('url')}: {e}")
@@ -31,10 +31,10 @@ def save_streamed_item_locally(item: dict, total_urls: int):
 
     # 2. Generate filename
     try:
-        folder_index = idx // 10000
+        folder_index = idx // 10000 #Creates new directory on every 10000th file
         folder_path = os.path.join(config["paths"]["Dataset"]["WebIE"]["C4_Data_Dir"], str(folder_index))
         os.makedirs(folder_path, exist_ok=True)
-        filename=f"{idx}.json"
+        filename=f"{idx}.json" #Create filename
         filepath=os.path.join(folder_path, filename)
         idx+=1
         logger.debug(f"Saving to: {filepath}")
@@ -45,7 +45,7 @@ def save_streamed_item_locally(item: dict, total_urls: int):
     # 3. Write file
     try:
         with open(filepath,"wb") as f:
-            f.write(bytes_data)
+            f.write(bytes_data) #Writes data into jsonfile
         logger.info(f"Saved item locally: {filepath}")
     except Exception as e:
         logger.error(f"File write error for URL {item.get('url')}: {e}")
@@ -58,10 +58,10 @@ if __name__ == "__main__":
 
     # Load URLs
     try:
-        urls = set()
+        urls = set() 
         with open(url_path) as f:
             for line in f:
-                urls.add(line.strip())
+                urls.add(line.strip()) #Adds annotated urls to set
 
         print(f"Loaded {len(urls)} urls.")
         logger.info(f"Loaded {len(urls)} urls from {url_path}.")
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     urls_set = set(urls)
 
-    # Stream C4
+    # Stream C4 using Huggingface
     try:
         stream = load_dataset(
             "allenai/c4",
@@ -87,8 +87,8 @@ if __name__ == "__main__":
         
     count=0
     try:
-        for item in stream:
-            if item["url"] in urls_set:
+        for item in stream: 
+            if item["url"] in urls_set: #Checks if item url present in annotated urls
                 save_streamed_item_locally(item,len(urls_set))
                 count+=1
                 logger.debug(f"Matched {count} items so far")
